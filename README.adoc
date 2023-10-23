@@ -5,7 +5,7 @@ Utility to show status of https://gitlab.com/explore/projects[Gitlab] CI/CD pipe
 .Examplary output of the command (uncolored).
 [source]
 ----
-python PipelineUtil.py --projects my-app --references release --verbose
+./PipelineUtil.py run --projects my-app --references release --verbose
 my-group / my-app
 |- 2047173 --------- release -----------------------> success
 |- 2047172 --------- release -----------------------> failed
@@ -18,16 +18,23 @@ my-group / my-app
 Mainly based on https://python-gitlab.readthedocs.io/en/stable/gl_objects/projects.html[gitlab-python].
 
 . python installation
-. installed dependencies
-* `python -m pip install python-gitlab`
-* `python -m pip install truststore`
+. installed dependencies (i.e. `pip install .`)
 
 == Usage
 
-. run `python PipelineUtil.py --help` for usage information.
+* run `./PipelineUtil.py --help` for usage information.
 
 == Customization
 
-Using a self-managed gitlab instance and private repositories can be accessed by providing the url and token as parameters or as environment variables (_PIPELINEUTIL_URL_, _PIPELINEUTIL_TOKEN_).
+Access to multiple gitlab instances can be configured via the CLI. +
+Alternatively, use environment variables (_PIPELINEUTIL_URL_, _PIPELINEUTIL_TOKEN_) for a minimal setup.
 
-Self-managed gitlab instances secured with self-signed certificates might require you provide the certificate authority's certificate. `truststore` is used to access the native system certificate stores. Otherwise, import the certicate authority's certificate into the certifi certificate store (located at `python -c "import certifi;print(certifi.where());"`).
+Gitlab instances may be secured with self-signed certificates.
+`truststore` is used to access the native system's certificate stores.
+Alternatively, append the certicate authority's certificate to the certifi certificate store.
+It's location can be displayed by running:
+
+[source,shell]
+----
+python -c "import certifi;print(certifi.where())"
+----
