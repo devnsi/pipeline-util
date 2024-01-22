@@ -1,4 +1,4 @@
-#!python
+#!/usr/bin/env python
 from __future__ import annotations
 
 import argparse
@@ -231,7 +231,13 @@ def parse_args():
     parser_remove.set_defaults(which='remove')
     parser_remove.add_argument('alias', type=str, help='to be removed (from the configuration)')
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if not hasattr(args, 'which'):
+        parser.print_help()
+        exit()
+
+    return args
 
 
 def run_command(args: argparse.Namespace):

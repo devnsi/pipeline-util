@@ -7,3 +7,6 @@ dependencies = [
     "tomli_w==1.0.0",
     "truststore==0.8.0"
 ]
+
+[tool.setuptools]
+py-modules = ["PipelineUtil"]
